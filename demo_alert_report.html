@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body style="margin:0;padding:0;background:#0d0d0d;font-family:'Segoe UI',Arial,sans-serif;color:#e0e0e0;">
+  <div style="max-width:900px;margin:0 auto;padding:32px 24px;">
+
+    <!-- Header -->
+    <div style="border-left:4px solid #FF4C4C;padding-left:20px;margin-bottom:32px;">
+      <div style="font-size:11px;letter-spacing:3px;color:#888;text-transform:uppercase;">Data Observability</div>
+      <h1 style="margin:4px 0;font-size:26px;font-weight:800;">Pipeline Health Report</h1>
+      <div style="color:#888;font-size:13px;">Generated: 2026-04-24 19:40:20 UTC</div>
+    </div>
+
+    <!-- KPI strip -->
+    <div style="display:flex;gap:16px;margin-bottom:32px;">
+      <div style="flex:1;background:#1a0000;border:1px solid #FF4C4C;border-radius:8px;padding:16px;text-align:center;">
+        <div style="font-size:36px;font-weight:800;color:#FF4C4C;">2</div>
+        <div style="font-size:12px;color:#aaa;text-transform:uppercase;letter-spacing:1px;">Critical</div>
+      </div>
+      <div style="flex:1;background:#1a1000;border:1px solid #FFA940;border-radius:8px;padding:16px;text-align:center;">
+        <div style="font-size:36px;font-weight:800;color:#FFA940;">3</div>
+        <div style="font-size:12px;color:#aaa;text-transform:uppercase;letter-spacing:1px;">Warnings</div>
+      </div>
+      <div style="flex:1;background:#0a1a0a;border:1px solid #52C41A;border-radius:8px;padding:16px;text-align:center;">
+        <div style="font-size:36px;font-weight:800;color:#52C41A;">3</div>
+        <div style="font-size:12px;color:#aaa;text-transform:uppercase;letter-spacing:1px;">Pipelines</div>
+      </div>
+    </div>
+
+    <!-- Pipeline status -->
+    <div style="margin-bottom:32px;">
+            <div style="display:inline-block;background:#1a1a1a;border:1px solid #FFA940;border-radius:8px;padding:12px 20px;margin:6px;">
+              <div style="font-size:20px;">⚠</div>
+              <div style="font-weight:700;margin-top:4px;">commercial_kpis</div>
+              <div style="color:#888;font-size:12px;">5,000 rows · 2 alerts</div>
+            </div>
+            <div style="display:inline-block;background:#1a1a1a;border:1px solid #FFA940;border-radius:8px;padding:12px 20px;margin:6px;">
+              <div style="font-size:20px;">⚠</div>
+              <div style="font-weight:700;margin-top:4px;">inventory_stock</div>
+              <div style="color:#888;font-size:12px;">8,000 rows · 1 alerts</div>
+            </div>
+            <div style="display:inline-block;background:#1a1a1a;border:1px solid #FF4C4C;border-radius:8px;padding:12px 20px;margin:6px;">
+              <div style="font-size:20px;">❌</div>
+              <div style="font-weight:700;margin-top:4px;">strategic_indicators</div>
+              <div style="color:#888;font-size:12px;">500 rows · 2 alerts</div>
+            </div></div>
+
+    <!-- Alerts table -->
+    <h2 style="font-size:16px;font-weight:700;border-bottom:1px solid #2a2a2a;padding-bottom:12px;margin-bottom:0;">Alert Details</h2>
+    <table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <thead>
+        <tr style="background:#1a1a1a;color:#888;font-size:11px;text-transform:uppercase;letter-spacing:1px;">
+          <th style="padding:10px 12px;text-align:left;">Pipeline</th>
+          <th style="padding:10px 12px;text-align:left;">Severity</th>
+          <th style="padding:10px 12px;text-align:left;">Check</th>
+          <th style="padding:10px 12px;text-align:left;">Column</th>
+          <th style="padding:10px 12px;text-align:left;">Message</th>
+        </tr>
+      </thead>
+      <tbody>
+            <tr>
+              <td style="padding:8px 12px;border-bottom:1px solid #2a2a2a;">strategic_indicators</td>
+              <td style="padding:8px 12px;border-bottom:1px solid #2a2a2a;">
+                <span style="background:#FF4C4C;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;">CRITICAL</span>
+              </td>
+              <td style="padding:8px 12px;border-bottom:1px solid #2a2a2a;">NULL</td>
+              <td style="padding:8px 12px;border-bottom:1px solid #2a2a2a;font-family:monospace;">actual_value</td>
+              <td style="padding:8px 12px;border-bottom:1px solid #2a2a2a;font-size:13px;">Column 'actual_value' has 6.0% null values (threshold: 5.0%)</td>
+            </tr>
+            <tr>
+              <td style="padding:8px 12px;border-bottom:1px solid #2a2a2a;">strategic_indicators</td>
+              <td style="padding:8px 12px;border-bottom:1px solid #2a2a2a;">
+                <span style="background:#FF4C4C;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;">CRITICAL</span>
+              </td>
+              <td style="padding:8px 12px;border-bottom:1px solid #2a2a2a;">FRESHNESS</td>
+              <td style="padding:8px 12px;border-bottom:1px solid #2a2a2a;font-family:monospace;">reference_period</td>
+              <td style="padding:8px 12px;border-bottom:1px solid #2a2a2a;font-size:13px;">Column 'reference_period' most recent value is 552.0h old (max allowed: 24h)</td>
+            </tr>
+            <tr>
+              <td style="padding:8px 12px;border-bottom:1px solid #2a2a2a;">commercial_kpis</td>
+              <td style="padding:8px 12px;border-bottom:1px solid #2a2a2a;">
+                <span style="background:#FFA940;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;">WARNING</span>
+              </td>
+              <td style="padding:8px 12px;border-bottom:1px solid #2a2a2a;">NULL</td>
+              <td style="padding:8px 12px;border-bottom:1px solid #2a2a2a;font-family:monospace;">revenue</td>
+              <td style="padding:8px 12px;border-bottom:1px solid #2a2a2a;font-size:13px;">Column 'revenue' has 8.0% null values (threshold: 3.0%)</td>
+            </tr>
+            <tr>
+              <td style="padding:8px 12px;border-bottom:1px solid #2a2a2a;">commercial_kpis</td>
+              <td style="padding:8px 12px;border-bottom:1px solid #2a2a2a;">
+                <span style="background:#FFA940;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;">WARNING</span>
+              </td>
+              <td style="padding:8px 12px;border-bottom:1px solid #2a2a2a;">DUPLICATE</td>
+              <td style="padding:8px 12px;border-bottom:1px solid #2a2a2a;font-family:monospace;">—</td>
+              <td style="padding:8px 12px;border-bottom:1px solid #2a2a2a;font-size:13px;">142 duplicate rows found (2.84% of total 5,000 rows)</td>
+            </tr>
+            <tr>
+              <td style="padding:8px 12px;border-bottom:1px solid #2a2a2a;">inventory_stock</td>
+              <td style="padding:8px 12px;border-bottom:1px solid #2a2a2a;">
+                <span style="background:#FFA940;color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;">WARNING</span>
+              </td>
+              <td style="padding:8px 12px;border-bottom:1px solid #2a2a2a;">NULL</td>
+              <td style="padding:8px 12px;border-bottom:1px solid #2a2a2a;font-family:monospace;">qty_on_hand</td>
+              <td style="padding:8px 12px;border-bottom:1px solid #2a2a2a;font-size:13px;">Column 'qty_on_hand' has 4.0% null values (threshold: 2.0%)</td>
+            </tr></tbody>
+    </table>
+
+    <!-- Footer -->
+    <div style="margin-top:40px;padding-top:20px;border-top:1px solid #2a2a2a;color:#555;font-size:12px;">
+      Pipeline Monitor · Francian Rodrigues Santos · Automated Data Observability
+    </div>
+  </div>
+</body>
+</html>
