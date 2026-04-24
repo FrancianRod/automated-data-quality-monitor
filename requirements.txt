@@ -1,0 +1,18 @@
+# Pipeline Health Monitor — Dependencies
+# pip install -r requirements.txt
+
+# Core
+pandas>=2.0.0
+numpy>=1.26.0
+scipy>=1.12.0
+pyyaml>=6.0.1
+pyarrow>=15.0.0         # parquet support (for baseline snapshots)
+
+# Database connectors (instale apenas o que usar)
+# psycopg2-binary>=2.9.9      # PostgreSQL
+# cx_Oracle>=8.3.0            # Oracle
+# pyodbc>=5.0.0               # SQL Server
+
+# Testing
+pytest>=8.0.0
+pytest-cov>=5.0.0
