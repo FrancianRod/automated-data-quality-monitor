@@ -210,6 +210,7 @@ Drift é relativo. O range "normal" de uma coluna deve ser ancorado no comportam
 | Só Aço — S&OP / MRP | Monitoramento automatizado de OEE, Refugo e Lead Time |
 
 ---
+![Data Observability Monitor](img/Observability.png)
 
 ## 👤 Autor
 
