@@ -1,0 +1,165 @@
+# ═══════════════════════════════════════════════════════════════
+# Pipeline Monitor — Configuration
+# ═══════════════════════════════════════════════════════════════
+# Each pipeline block defines:
+#   - source: where to load data (csv, parquet, postgres, oracle, sqlserver)
+#   - null_checks: acceptable null rates per column
+#   - duplicate_checks: key columns and duplicate thresholds
+#   - drift_checks: statistical drift sensitivity
+#   - volume_checks: row count anomaly detection
+#   - freshness_checks: maximum data age in hours
+# ═══════════════════════════════════════════════════════════════
+
+# ─── E-mail alert settings ───────────────────────────────────
+alert_settings:
+  enabled: true                            # set false to only save local HTML reports
+  smtp_host: smtp.gmail.com
+  smtp_port: 587
+  sender_email: "your-email@gmail.com"
+  password_env: MONITOR_EMAIL_PASSWORD     # export MONITOR_EMAIL_PASSWORD=yourpassword
+  recipients:
+    - "francian@yourcompany.com"
+    - "data-team@yourcompany.com"
+
+# ─── Pipeline Definitions ────────────────────────────────────
+pipelines:
+
+  # ── 1. Commercial KPIs (simulates a BI layer used in JSB/Very dashboards) ──
+  - name: commercial_kpis
+    source:
+      type: csv
+      path: sample_data/commercial_kpis.csv
+
+    null_checks:
+      warning_threshold: 0.03      # flag if >3% nulls
+      critical_threshold: 0.15     # critical if >15% nulls
+      exclude_columns:
+        - notes
+        - secondary_channel
+
+    duplicate_checks:
+      key_columns:
+        - order_id
+        - date
+      threshold: 0.005             # >0.5% duplicates triggers alert
+
+    drift_checks:
+      z_score_threshold: 2.5
+      ks_pvalue_threshold: 0.05
+      exclude_columns:
+        - order_id
+
+    volume_checks:
+      enabled: true
+      drop_threshold: 0.25         # alert if row count drops >25%
+      spike_threshold: 3.0         # alert if rows spike >3x
+
+    freshness_checks:
+      date_columns:
+        - order_date
+        - updated_at
+      max_age_hours: 26            # data must be refreshed within 26h
+
+  # ── 2. Inventory / Stock Pipeline (mirrors S&OP monitoring at Só Aço) ──
+  - name: inventory_stock
+    source:
+      type: csv
+      path: sample_data/inventory_stock.csv
+
+    null_checks:
+      warning_threshold: 0.02
+      critical_threshold: 0.10
+      exclude_columns:
+        - lot_number
+        - supplier_notes
+
+    duplicate_checks:
+      key_columns:
+        - sku_id
+        - warehouse_id
+        - snapshot_date
+      threshold: 0.001
+
+    drift_checks:
+      z_score_threshold: 3.0
+      ks_pvalue_threshold: 0.05
+      exclude_columns:
+        - sku_id
+        - warehouse_id
+
+    volume_checks:
+      enabled: true
+      drop_threshold: 0.20
+      spike_threshold: 2.5
+
+    freshness_checks:
+      date_columns:
+        - snapshot_date
+      max_age_hours: 48
+
+  # ── 3. Strategic Indicators Pipeline (executive dashboard — SAS Viya context) ──
+  - name: strategic_indicators
+    source:
+      type: csv
+      path: sample_data/strategic_indicators.csv
+
+    null_checks:
+      warning_threshold: 0.01      # executive data — zero tolerance for nulls
+      critical_threshold: 0.05
+      exclude_columns: []
+
+    duplicate_checks:
+      key_columns:
+        - indicator_id
+        - reference_period
+      threshold: 0.0005
+
+    drift_checks:
+      z_score_threshold: 2.0       # tighter drift detection for executive KPIs
+      ks_pvalue_threshold: 0.10
+      exclude_columns:
+        - indicator_id
+
+    volume_checks:
+      enabled: true
+      drop_threshold: 0.15
+      spike_threshold: 2.0
+
+    freshness_checks:
+      date_columns:
+        - reference_period
+        - loaded_at
+      max_age_hours: 24
+
+  # ── EXAMPLE: PostgreSQL source (uncomment and fill credentials) ──
+  # - name: postgres_sales_pipeline
+  #   source:
+  #     type: postgres
+  #     host: db.yourcompany.com
+  #     port: 5432
+  #     database: analytics
+  #     user: readonly_user
+  #     password_env: POSTGRES_PASSWORD    # export POSTGRES_PASSWORD=xxx
+  #     query: >
+  #       SELECT order_id, customer_id, amount, status, created_at
+  #       FROM sales.orders
+  #       WHERE created_at >= CURRENT_DATE - INTERVAL '7 days'
+  #   null_checks:
+  #     warning_threshold: 0.02
+  #     critical_threshold: 0.10
+  #   duplicate_checks:
+  #     key_columns: [order_id]
+  #     threshold: 0.001
+
+  # ── EXAMPLE: Oracle source ──
+  # - name: oracle_erp_pipeline
+  #   source:
+  #     type: oracle
+  #     host: erp.yourcompany.com
+  #     port: 1521
+  #     service: ORCL
+  #     user: data_reader
+  #     password_env: ORACLE_PASSWORD
+  #     query: >
+  #       SELECT * FROM PRODUCTION.DEMAND_FORECAST
+  #       WHERE SNAPSHOT_DATE = TRUNC(SYSDATE)
